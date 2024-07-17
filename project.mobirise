@@ -19,7 +19,7 @@
         "display5Font": "Inter Tight",
         "display5Size": "1.8",
         "display7Font": "Manrope",
-        "display7Size": "1.5",
+        "display7Size": "1",
         "display4Font": "Manrope",
         "display4Size": "1.4",
         "isRoundedImages": true,
@@ -36,7 +36,8 @@
       "additionalSetColors": [
         "#ff4552",
         "#4552ff",
-        "#f2f2f0"
+        "#f2f2f0",
+        "#cc2952"
       ]
     },
     "path": "@PROJECT_PATH@",
@@ -71,7 +72,7 @@
     "cookiesAlert": false,
     "gdpr": false,
     "publishEditFolder": true,
-    "uniqCompNum": 9,
+    "uniqCompNum": 10,
     "versionPublish": "5.9.18",
     "screenshot": "screenshot.png"
   },
@@ -880,11 +881,11 @@
           "_sourceTheme": "dentauram4",
           "_customHTML": "<section data-bs-version=\"5.1\" class=\"mbr-section\" group=\"Dentaura Spacer\" data-bg-video=\"{{bg.type == 'video' && bg.value.url}}\" mbr-class=\"{'mbr-parallax-background': bg.parallax}\">\n\n    <mbr-parameters>\n    <!-- Block parameters controls (Blue \"Gear\" panel) -->\n        <header>BLOCK HEIGHT</header> \n\t\t<input type=\"range\" inline title=\"Height in Desktop\" name=\"heightDesktop\" min=\"8\" max=\"40\" step=\"1\" value=\"20\">\n        <input type=\"range\" inline title=\"Height in Tab\" name=\"heightTab\" min=\"8\" max=\"40\" step=\"1\" value=\"8\">\n        <input type=\"range\" inline title=\"Height in Mobile\" name=\"heightMobile\" min=\"8\" max=\"40\" step=\"1\" value=\"8\">\n        <header>BORDER</header> \n        <input type=\"checkbox\" title=\"Lower Border\" name=\"lowerBorder\" checked>\n        <input type=\"range\" inline title=\"Lower Border Height\" name=\"htBorder\" min=\"1\" max=\"40\" step=\"1\" value=\"1\" condition=\"lowerBorder\">\n        <input type=\"color\" title=\"Lower Border Color\" name=\"colorBorder\" value=\"#f2f2f0\" condition=\"lowerBorder\">\n        <header>BACKGROUND</header> \n        <fieldset type=\"background\" name=\"bg\" parallax>\n            <input type=\"image\" title=\"Background Image\" value=\"../_images/background1.jpg\">\n            <input type=\"color\" title=\"Background Color\" value=\"#edefeb\" selected>\n            <input type=\"video\" title=\"Background Video\" value=\"https://www.youtube.com/watch?v=36YgDDJ7XSc\">\n        </fieldset>\n        <input type=\"checkbox\" title=\"Overlay\" name=\"overlay\" condition=\"bg.type !== 'color'\" checked>\n        <input type=\"color\" title=\"Overlay Color\" name=\"overlayColor\" value=\"#232323\" condition=\"overlay && bg.type !== 'color'\">\n        <input type=\"range\" inline title=\"Opacity\" name=\"overlayOpacity\" min=\"0\" max=\"1\" step=\"0.1\" value=\"0.1\" condition=\"overlay && bg.type !== 'color'\">\n    <!-- End block parameters -->\n    </mbr-parameters>\n\n    <div class=\"mbr-overlay\" mbr-if=\"overlay && bg.type !== 'color'\" mbr-style=\"{'opacity': overlayOpacity, 'background-color': overlayColor}\">\n    </div>\n        \n    <div class=\"container-fluid\">\n        <div class=\"dentaura-top-spacer\"></div>\n    </div>\n</section>",
           "_cid": "uiOjoFmNkF",
+          "_anchor": "spacer-8",
           "_protectedParams": [],
           "_global": false,
           "_once": false,
-          "_params": {},
-          "_anchor": "spacer-8"
+          "_params": {}
         },
         {
           "alias": false,
@@ -893,70 +894,75 @@
               "padding-top": "(@paddingTop * 1rem)",
               "padding-bottom": "(@paddingBottom * 1rem)"
             },
-            "background-color": "@bgColor",
-            "input": {
-              "padding": "1.5rem 1.5rem",
-              "border": "none !important",
+            "& when (@bg-type = \"image\")": {
+              "background-image": "url(@bg-value)"
+            },
+            "& when (@bg-type = \"color\")": {
+              "background-color": "@bg-value"
+            },
+            ".mbr-fallback-image.disabled": {
+              "display": "none"
+            },
+            ".mbr-fallback-image": {
+              "display": "block",
+              "background-size": "cover",
+              "background-position": "center center",
+              "width": "100%",
               "height": "100%",
-              "&:hover": {
-                "border": "none !important"
+              "position": "absolute",
+              "top": "0",
+              "& when (@bg-type = 'video')": {
+                "background-image": "url(@fallBackImage)"
               }
             },
-            ".btn": {
-              "height": "100%",
-              "margin": "auto",
-              "@media (min-width: 768px)": {
-                "margin-left": "0.625rem"
+            "& when (@reverseContent)": {
+              ".row": {
+                "flex-direction": "row-reverse"
+              }
+            },
+            "& when (@fullWidth)": {
+              "& when (@imageFullWidth)": {
+                ".container-fluid": {
+                  "padding": "0"
+                },
+                ".text-wrapper": {
+                  "padding": "0 4rem",
+                  "@media (max-width: 768px)": {
+                    "padding": "0 2rem"
+                  }
+                }
+              }
+            },
+            ".image-wrapper": {
+              "@media (max-width: 991px)": {
+                "margin-bottom": "2rem"
+              },
+              "img": {
+                "width": "100%",
+                "object-fit": "cover"
               }
             },
             ".text-wrapper": {
               "@media (min-width: 992px)": {
-                "padding": "0 2rem"
-              }
-            },
-            "@media (max-width: 767px)": {
-              ".row": {
-                "justify-content": "center"
-              }
-            },
-            ".mbr-section-btn": {
-              "display": "flex",
-              "width": "fit-content",
-              "@media (max-width: 767px)": {
-                "margin-top": "1rem"
+                "padding": "0 2rem",
+                "& when (@fullWidth)": {
+                  "padding": "0 4rem"
+                }
               },
-              ".btn": {
-                "width": "auto"
-              }
-            },
-            "@media (max-width: 991px)": {
-              ".image-wrapper": {
+              "@media (max-width: 768px)": {
                 "margin-bottom": "2rem"
-              },
-              ".content-wrapper": {
-                "flex-direction": "column-reverse"
               }
-            },
-            ".justify-content-center": {
-              "align-items": "center"
-            },
-            ".mbr-section-title": {
-              "color": "#260a30"
-            },
-            ".mbr-text": {
-              "color": "#260a30",
-              "text-align": "left"
             }
           },
-          "_name": "header08",
-          "_sourceTheme": "startm5",
-          "_customHTML": "<section data-bs-version=\"5.1\" class=\"header8\" group=\"Headers\" mbr-class=\"{\n    'mbr-fullscreen': fullScreen}\" plugins=\"formstyler, datepicker\">\n\t<mbr-parameters>\n\t\t<header>Size</header>\n\t\t<input type=\"checkbox\" title=\"Full Screen\" name=\"fullScreen\">\n\t\t<input type=\"checkbox\" title=\"Full Width\" name=\"fullWidth\" checked>\n\t\t<input type=\"range\" inline title=\"Top\" name=\"paddingTop\" min=\"0\" max=\"12\" step=\"1\" value=\"6\" condition=\"fullScreen == false\">\n\t\t<input type=\"range\" inline title=\"Bottom\" name=\"paddingBottom\" min=\"0\" max=\"12\" step=\"1\" value=\"6\" condition=\"fullScreen == false\">\n\t\t<header>Show/Hide</header>\n\t\t<input type=\"checkbox\" title=\"Title\" name=\"showTitle\" checked>\n\t\t<input type=\"checkbox\" title=\"Text\" name=\"showText\" checked>\n\t\t<header>Background</header>\n\t\t<input type=\"color\" name=\"bgColor\" title=\"Color\" value=\"#edefeb\" selected>\n\t\t<input type=\"hidden\" name=\"usedRecaptcha\" value=\"false\">\n\t</mbr-parameters>\n\n\t<div class=\"mbr-overlay\" mbr-if=\"overlay && bg.type !== 'color'\" opacity=\"{{overlayOpacity}}\" bg-color=\"{{overlayColor}}\"></div>\n\n\t<div mbr-class=\"{'container': !fullWidth, 'container-fluid': fullWidth}\">\n\t\t<div class=\"row content-wrapper justify-content-center\">\n\t\t\t<div mbr-form class=\"col-lg-7 mbr-form\">\n\t\t\t\t<div class=\"text-wrapper align-left\">\n\t\t\t\t\t<form action name=\"Form Name\" method=\"POST\" class=\"mbr-form form-with-styler\" data-verified>\n\t\t\t\t\t\t<div class=\"dragArea row\">\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-12 col-sm-12\">\n\t\t\t\t\t\t\t\t<h1 class=\"mbr-section-title mbr-fonts-style mb-4\" data-app-selector=\".mbr-section-title\" mbr-theme-style=\"display-7\" mbr-if=\"showTitle\"><b><br></b>Welcome! This website is under construction. Check my <a href=\"https://scholars.duke.edu/person/anna.p.smith\" class=\"text-primary\" target=\"_blank\">Duke Scholars profile</a> for missing information.&nbsp;<br><br><b>The Cognitive Science of Creativity and Aesthetics&nbsp;</b></h1>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-12 col-sm-12\">\n\t\t\t\t\t\t\t\t<p mbr-theme-style=\"display-7\" mbr-if=\"showText\" class=\"mbr-text mbr-fonts-style mb-4\" data-app-selector=\".mbr-text\"><br>I am a cognitive scientist whose specialization is in the measurement of “generative thought,” or how the brain deploys past experiences to generate new ideas, as in the case of mind wandering, future thinking, creative cognition, imagination, and meaning-making during aesthetic experience. I am inspired by science writers, autobiographers, and polymaths whose aesthetic attitudes towards the natural world blur the boundaries between artistic composition and objective description. I am interested in the idea that memory can have an aesthetic quality that is both expressed in art and/or interpreted through sensory perception during aesthetic experiences. My dissertation is entitled, \"Contributions of Memory to Aesthetic Experiences of Visual Art.\"<br><br>I have extensive experience designing and teaching upper-secondary and bachelors-level neuroscience curricula, including formerly directing and teaching Duke Youth Programs' Neurosciences Camp for high schoolers (in 2018 and 2019, prior to starting graduate school) and working as a Duke Learning Innovation Fellow in the summer of 2023 to re-design and execute the Neuroscience Major's Introduction to Cognitive Neuroscience (NEUROSCI 217) in 2024 as a laboratory-based active learning course.<br><br>Outside of work, I like to run and spend time in nature, take care of my cat Wesley, play RPGs, fill journals, do field drawing, and explore.&nbsp;<br><br></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div data-for=\"email\" class=\"col-lg-6 col-md-6 col-sm-12\">\n\t\t\t\t\t\t\t\t<input type=\"email\" name=\"email\" placeholder=\"test@email.com\" data-form-field=\"email\" mbr-theme-style=\"display-7\" class=\"form-control\" value>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-auto mbr-section-btn\" mbr-buttons=\"true\" mbr-theme-style=\"display-7\" data-toolbar=\"-mbrBtnMove,-mbrLink,-mbrBtnRemove,-mbrBtnAdd\">\n\t\t\t\t\t\t\t\t<a type=\"submit\" class=\"w-100 btn btn-black\" data-app-placeholder=\"Type Text\">Submit</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t<div hidden=\"hidden\" data-form-alert class=\"alert alert-success col-12\">Thanks for filling out the form!</div>\n\t\t\t\t\t\t\t\t<div hidden=\"hidden\" data-form-alert-danger class=\"alert alert-danger col-12\">\n\t\t\t\t\t\t\t\t\tOops...! some problem!\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</form>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"col-lg-5 col-12\">\n\t\t\t\t<div class=\"image-wrapper\">\n\t\t\t\t\t<img class=\"w-100\" src=\"@PROJECT_PATH@/assets/images/asheville-headshot.jpg\" alt=\"Mobirise Website Builder\">\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>",
-          "_cid": "uiNXlcJXTW",
-          "_anchor": "header08-5",
+          "_name": "header14",
+          "_sourceTheme": "mobirise5",
+          "_customHTML": "<section data-bs-version=\"5.1\" class=\"header14\" group=\"Headers\" data-bg-video=\"{{bg.type == 'video' && bg.value.url}}\" mbr-class=\"{\n    'mbr-fullscreen': fullScreen,\n    'mbr-parallax-background': bg.parallax}\">\n\n    <mbr-parameters>\n        <header>Size</header>\n        <input type=\"checkbox\" title=\"Full Screen\" name=\"fullScreen\" checked>\n        <input type=\"checkbox\" title=\"Full Width\" name=\"fullWidth\">\n        <input type=\"range\" inline title=\"Top\" name=\"paddingTop\" min=\"0\" max=\"10\" step=\"1\" value=\"6\" condition=\"fullScreen == false\">\n        <input type=\"range\" inline title=\"Bottom\" name=\"paddingBottom\" min=\"0\" max=\"10\" step=\"1\" value=\"6\" condition=\"fullScreen == false\">\n        <input type=\"range\" inline name=\"imageWidth\" title=\"Image\" min=\"4\" max=\"8\" step=\"1\" value=\"4\">\n        <input type=\"checkbox\" title=\"Reverse\" name=\"reverseContent\" checked>\n        <header>Show/Hide</header>\n        <input type=\"checkbox\" title=\"Remove Padding\" name=\"imageFullWidth\" condition=\"fullWidth\">\n        <input type=\"checkbox\" title=\"Title\" name=\"showTitle\" checked>\n        <input type=\"checkbox\" title=\"Text\" name=\"showText\" checked>\n        <input type=\"checkbox\" title=\"Buttons\" name=\"showButtons\">\n        <header>Background</header>\n        <fieldset type=\"background\" name=\"bg\" parallax>\n            <input type=\"image\" title=\"Image\" value=\"../_images/background7.jpg\" parallax>\n            <input type=\"color\" title=\"Color\" value=\"#edefeb\" selected>\n            <input type=\"video\" title=\"Video\" value=\"https://vimeo.com/428046504\">\n        </fieldset>\n        <header condition=\"bg.type === 'video'\">Fallback Image</header>\n        <input type=\"image\" title=\"Fallback Image\" value=\"../_images/background13.jpg\" name=\"fallBackImage\" condition=\"bg.type === 'video'\">\n        <input type=\"checkbox\" title=\"Overlay\" name=\"overlay\" condition=\"bg.type !== 'color'\" checked>\n        <input type=\"color\" title=\"Overlay Color\" name=\"overlayColor\" value=\"#ffffff\" condition=\"overlay && bg.type !== 'color'\">\n        <input type=\"range\" inline title=\"Opacity\" name=\"overlayOpacity\" min=\"0\" max=\"1\" step=\"0.1\" value=\"0.8\" condition=\"overlay && bg.type !== 'color'\">\n    </mbr-parameters>\n\n    <div class=\"mbr-fallback-image disabled\" mbr-if=\"bg.type == 'video'\"></div>\n    <div class=\"mbr-overlay\" mbr-if=\"overlay && bg.type !== 'color'\" opacity=\"{{overlayOpacity}}\" bg-color=\"{{overlayColor}}\"></div>\n\n    <div mbr-class=\"{'container': !fullWidth, 'container-fluid': fullWidth}\">\n        <div class=\"row justify-content-center align-items-center\">\n            <div class=\"col-12 col-md-{{imageWidth}} image-wrapper\">\n                <img src=\"@PROJECT_PATH@/assets/images/asheville-headshot-1.jpg\" alt=\"Mobirise Website Builder\">\n            </div>\n            <div class=\"col-12 col-md\">\n                <div class=\"text-wrapper\">\n                    <h1 class=\"mbr-section-title mbr-fonts-style mb-3\" data-app-selector=\".mbr-section-title\" mbr-theme-style=\"display-2\" mbr-if=\"showTitle\">\n                        <b>Welcome!</b></h1>\n                    <p class=\"mbr-text mbr-fonts-style\" mbr-theme-style=\"display-7\" mbr-if=\"showText\" data-app-selector=\".mbr-text, .mbr-section-btn\"><br>This website is under construction. Check my <a href=\"https://scholars.duke.edu/person/anna.p.smith\" class=\"text-primary\" target=\"_blank\">Duke Scholars profile</a> for missing information.<br>&nbsp;<br>I am a cognitive scientist whose specialization is in the measurement of “<b>generative thought</b>,” or how the brain deploys past experiences to generate new ideas, as in the case of mind wandering, future thinking, creative cognition, imagination, and meaning-making during aesthetic experience. I am inspired by science writers, autobiographers, and polymaths whose aesthetic attitudes towards the natural world blur the boundaries between artistic composition and objective description. I am interested in the idea that memory can have an aesthetic quality that is both expressed in art and/or interpreted through sensory perception during aesthetic experiences. My dissertation is entitled, \"Contributions of Memory to Aesthetic Experiences of Visual Art.\"\n<br>\n<br>I have extensive experience designing and teaching upper-secondary and bachelors-level neuroscience curricula, including formerly directing and teaching Duke Youth Programs' Neurosciences Camp for high schoolers (in 2018 and 2019, prior to starting graduate school) and working as a Duke Learning Innovation Fellow in the summer of 2023 to re-design and execute the Neuroscience Major's Introduction to Cognitive Neuroscience (NEUROSCI 217) in 2024 as a laboratory-based active learning course.\n<br>\n<br>Outside of work, I like to run and spend time in nature, take care of my cat Wesley, play RPGs, fill journals, do field drawing, and explore.&nbsp;&nbsp;<br></p>\n                    <div mbr-buttons mbr-theme-style=\"display-4\" class=\"mbr-section-btn mt-3\" mbr-if=\"showButtons\" data-toolbar=\"-mbrBtnMove\">\n                        <a class=\"btn btn-secondary\" href=\"https://mobiri.se\" data-app-placeholder=\"Type Text\">Explore\n                            all features</a>\n                        <a class=\"btn btn-black-outline\" href=\"https://mobiri.se\" data-app-placeholder=\"Type Text\">Create\n                            account &gt;</a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</section>",
+          "_cid": "uiOAHETnT4",
           "_protectedParams": [],
           "_global": false,
           "_once": false,
-          "_params": {}
+          "_params": {},
+          "_anchor": "header14-9"
         },
         {
           "alias": false,
@@ -1017,7 +1023,7 @@
           },
           "_name": "header17",
           "_sourceTheme": "startm5",
-          "_customHTML": "<section data-bs-version=\"5.1\" class=\"header16\" group=\"Headers\" data-bg-video=\"{{bg.type == 'video' && bg.value.url}}\" mbr-class=\"{'mbr-fullscreen': fullScreen,\n'mbr-parallax-background': bg.parallax}\">\n  <mbr-parameters>\n    <header>Size</header>\n    <input type=\"checkbox\" title=\"Full Screen\" name=\"fullScreen\">\n    <input type=\"checkbox\" title=\"Full Width\" name=\"fullWidth\" checked>\n    <input type=\"range\" inline title=\"Top\" name=\"paddingTop\" min=\"0\" max=\"24\" step=\"1\" value=\"0\" condition=\"fullScreen == false\">\n    <input type=\"range\" inline title=\"Bottom\" name=\"paddingBottom\" min=\"0\" max=\"12\" step=\"1\" value=\"5\" condition=\"fullScreen == false\">\n    <input type=\"range\" inline title=\"Content Width\" name=\"contentWidth\" min=\"3\" max=\"12\" step=\"1\" value=\"12\">\n    <header>Show / Hide</header>\n    <input type=\"checkbox\" title=\"Title\" name=\"showTitle\">\n    <input type=\"checkbox\" title=\"Subtitle\" name=\"showSubtitle\" checked>\n    <input type=\"checkbox\" title=\"Text\" name=\"showText\" checked>\n    <input type=\"checkbox\" title=\"Buttons\" name=\"showButtons\">\n    <select title=\"Vertical Align\" name=\"verticalAlign\" condition=\"fullScreen\">\n      <option value=\"flex-start\">Top</option>\n      <option value=\"center\">Center</option>\n      <option value=\"flex-end\" selected>Bottom</option>\n    </select>\n    <select title=\"Horizontal Align\" name=\"horizontalAlign\">\n      <option value=\"flex-start\">Left</option>\n      <option value=\"center\" selected>Center</option>\n      <option value=\"flex-end\">Right</option>\n    </select>\n    <header>Background</header>\n    <fieldset type=\"background\" name=\"bg\" parallax>\n      <input type=\"image\" title=\"Image\" value=\"@PROJECT_PATH@/assets/images/banner.png\" parallax selected>\n      <input type=\"video\" title=\"Video\" value=\"https://www.youtube.com/watch?v=2Gg6Seob5Mg\">\n      <input type=\"color\" title=\"Color\" value=\"#260a30\">\n    </fieldset>\n    <header condition=\"bg.type === 'video'\">Fallback Image</header>\n    <input type=\"image\" title=\"Fallback Image\" value=\"../_images/background1.jpg\" name=\"fallBackImage\" condition=\"bg.type === 'video'\">\n    <input type=\"checkbox\" title=\"Overlay\" name=\"overlay\" condition=\"bg.type !== 'color'\">\n    <input type=\"color\" title=\"Overlay Color\" name=\"overlayColor\" value=\"#ffffff\" condition=\"overlay && bg.type !== 'color'\">\n    <input type=\"range\" inline title=\"Opacity\" name=\"overlayOpacity\" min=\"0\" max=\"1\" step=\"0.1\" value=\"0.8\" condition=\"overlay && bg.type !== 'color'\">\n\n    <input type=\"checkbox\" title=\"Overlay\" name=\"overlay\" condition=\"bg.type!='color'\">\n    <input type=\"color\" title=\"Overlay Color\" name=\"overlayColor\" value=\"#000000\" condition=\"bg.type!='color' && overlay\">\n    <input type=\"range\" inline title=\"Overlay Opacity\" name=\"overlayOpacity\" min=\"0\" max=\"1\" step=\"0.1\" value=\"0.5\" condition=\"bg.type!='color' && overlay\">\n  </mbr-parameters>\n  <div class=\"mbr-overlay\" mbr-if=\"overlay && bg.type !== 'color'\" opacity=\"{{overlayOpacity}}\" bg-color=\"{{overlayColor}}\"></div>\n  <div mbr-class=\"{'container': !fullWidth, 'container-fluid': fullWidth}\">\n    <div class=\"row\">\n      <div class=\"content-wrap col-12 col-md-{{contentWidth}}\">\n        <h1 class=\"mbr-section-title mbr-fonts-style mbr-white mb-4\" mbr-theme-style=\"display-1\" data-app-selector=\".mbr-section-title\" mbr-if=\"showTitle\"></h1>\n        <h2 class=\"mbr-section-subtitle mbr-fonts-style mbr-white mb-4\" data-app-selector=\".mbr-section-subtitle\" mbr-theme-style=\"display-2\" mbr-if=\"showSubtitle\"><br>Ph.D. Candidate in Psychology, Duke University<br>\n<div>ABD, est. Spring 2025</div></h2>\n        <p class=\"mbr-fonts-style mbr-text mbr-white mb-4\" mbr-theme-style=\"display-7\" mbr-if=\"showText\" data-app-selector=\".mbr-text, .mbr-section-btn\"><br><br>Advisors: Dr. Elizabeth Marsh and Dr. Felipe De Brigard<br><a href=\"https://www.marshmemorylab.com/team\" class=\"text-primary\" target=\"_blank\">Marsh Memory Lab</a> <br><a href=\"https://www.imclab.org/people\" class=\"text-primary\" target=\"_blank\">IMCLab</a> <br><br>M.A. Psychology, Duke University<br> B.A. Cognitive Science, Carleton College</p>\n        <div class=\"mbr-section-btn\" mbr-if=\"showButtons\" data-toolbar=\"-mbrBtnMove\" mbr-buttons mbr-theme-style=\"display-7\"><a class=\"btn btn-white-outline\" href=\"https://mobiri.se\" data-app-placeholder=\"Type Text\">Learn More</a></div>\n      </div>\n    </div>\n  </div>\n</section>",
+          "_customHTML": "<section data-bs-version=\"5.1\" class=\"header16\" group=\"Headers\" data-bg-video=\"{{bg.type == 'video' && bg.value.url}}\" mbr-class=\"{'mbr-fullscreen': fullScreen,\n'mbr-parallax-background': bg.parallax}\">\n  <mbr-parameters>\n    <header>Size</header>\n    <input type=\"checkbox\" title=\"Full Screen\" name=\"fullScreen\">\n    <input type=\"checkbox\" title=\"Full Width\" name=\"fullWidth\" checked>\n    <input type=\"range\" inline title=\"Top\" name=\"paddingTop\" min=\"0\" max=\"24\" step=\"1\" value=\"0\" condition=\"fullScreen == false\">\n    <input type=\"range\" inline title=\"Bottom\" name=\"paddingBottom\" min=\"0\" max=\"12\" step=\"1\" value=\"5\" condition=\"fullScreen == false\">\n    <input type=\"range\" inline title=\"Content Width\" name=\"contentWidth\" min=\"3\" max=\"12\" step=\"1\" value=\"12\">\n    <header>Show / Hide</header>\n    <input type=\"checkbox\" title=\"Title\" name=\"showTitle\">\n    <input type=\"checkbox\" title=\"Subtitle\" name=\"showSubtitle\" checked>\n    <input type=\"checkbox\" title=\"Text\" name=\"showText\" checked>\n    <input type=\"checkbox\" title=\"Buttons\" name=\"showButtons\">\n    <select title=\"Vertical Align\" name=\"verticalAlign\" condition=\"fullScreen\">\n      <option value=\"flex-start\">Top</option>\n      <option value=\"center\">Center</option>\n      <option value=\"flex-end\" selected>Bottom</option>\n    </select>\n    <select title=\"Horizontal Align\" name=\"horizontalAlign\">\n      <option value=\"flex-start\">Left</option>\n      <option value=\"center\" selected>Center</option>\n      <option value=\"flex-end\">Right</option>\n    </select>\n    <header>Background</header>\n    <fieldset type=\"background\" name=\"bg\" parallax>\n      <input type=\"image\" title=\"Image\" value=\"@PROJECT_PATH@/assets/images/banner.png\" parallax selected>\n      <input type=\"video\" title=\"Video\" value=\"https://www.youtube.com/watch?v=2Gg6Seob5Mg\">\n      <input type=\"color\" title=\"Color\" value=\"#260a30\">\n    </fieldset>\n    <header condition=\"bg.type === 'video'\">Fallback Image</header>\n    <input type=\"image\" title=\"Fallback Image\" value=\"../_images/background1.jpg\" name=\"fallBackImage\" condition=\"bg.type === 'video'\">\n    <input type=\"checkbox\" title=\"Overlay\" name=\"overlay\" condition=\"bg.type !== 'color'\">\n    <input type=\"color\" title=\"Overlay Color\" name=\"overlayColor\" value=\"#ffffff\" condition=\"overlay && bg.type !== 'color'\">\n    <input type=\"range\" inline title=\"Opacity\" name=\"overlayOpacity\" min=\"0\" max=\"1\" step=\"0.1\" value=\"0.8\" condition=\"overlay && bg.type !== 'color'\">\n\n    <input type=\"checkbox\" title=\"Overlay\" name=\"overlay\" condition=\"bg.type!='color'\">\n    <input type=\"color\" title=\"Overlay Color\" name=\"overlayColor\" value=\"#000000\" condition=\"bg.type!='color' && overlay\">\n    <input type=\"range\" inline title=\"Overlay Opacity\" name=\"overlayOpacity\" min=\"0\" max=\"1\" step=\"0.1\" value=\"0.5\" condition=\"bg.type!='color' && overlay\">\n  </mbr-parameters>\n  <div class=\"mbr-overlay\" mbr-if=\"overlay && bg.type !== 'color'\" opacity=\"{{overlayOpacity}}\" bg-color=\"{{overlayColor}}\"></div>\n  <div mbr-class=\"{'container': !fullWidth, 'container-fluid': fullWidth}\">\n    <div class=\"row\">\n      <div class=\"content-wrap col-12 col-md-{{contentWidth}}\">\n        <h1 class=\"mbr-section-title mbr-fonts-style mbr-white mb-4\" mbr-theme-style=\"display-1\" data-app-selector=\".mbr-section-title\" mbr-if=\"showTitle\"></h1>\n        <h2 class=\"mbr-section-subtitle mbr-fonts-style mbr-white mb-4\" data-app-selector=\".mbr-section-subtitle\" mbr-theme-style=\"display-2\" mbr-if=\"showSubtitle\"><br>Ph.D. Candidate in Psychology, Duke University<br>\n<div>ABD, est. graduation: Spring 2025</div></h2>\n        <p class=\"mbr-fonts-style mbr-text mbr-white mb-4\" mbr-theme-style=\"display-7\" mbr-if=\"showText\" data-app-selector=\".mbr-text, .mbr-section-btn\"><br><br>Advisors: Dr. Elizabeth Marsh and Dr. Felipe De Brigard<br><a href=\"https://www.marshmemorylab.com/team\" class=\"text-primary\" target=\"_blank\">Marsh Memory Lab</a> <br><a href=\"https://www.imclab.org/people\" class=\"text-primary\" target=\"_blank\">IMCLab</a> <br><br>M.A. Psychology, Duke University<br> B.A. Cognitive Science, Carleton College</p>\n        <div class=\"mbr-section-btn\" mbr-if=\"showButtons\" data-toolbar=\"-mbrBtnMove\" mbr-buttons mbr-theme-style=\"display-7\"><a class=\"btn btn-white-outline\" href=\"https://mobiri.se\" data-app-placeholder=\"Type Text\">Learn More</a></div>\n      </div>\n    </div>\n  </div>\n</section>",
           "_cid": "uiNWstjoT0",
           "_anchor": "header17-2",
           "_protectedParams": [],
@@ -1153,7 +1159,7 @@
           },
           "_name": "header01",
           "_sourceTheme": "startm5",
-          "_customHTML": "<section data-bs-version=\"5.1\" class=\"header1\" group=\"Headers\" data-bg-video=\"{{bg.type == 'video' && bg.value.url}}\" mbr-class=\"{\n    'mbr-fullscreen': fullScreen,\n    'mbr-parallax-background': bg.parallax}\">\n\t<mbr-parameters>\n\t\t<header>Size</header>\n\t\t<input type=\"checkbox\" title=\"Full Screen\" name=\"fullScreen\">\n\t\t<input type=\"checkbox\" title=\"Full Width\" name=\"fullWidth\">\n\t\t<input type=\"range\" inline title=\"Top\" name=\"paddingTop\" min=\"0\" max=\"12\" step=\"1\" value=\"6\" condition=\"fullScreen == false\">\n\t\t<input type=\"range\" inline title=\"Bottom\" name=\"paddingBottom\" min=\"0\" max=\"12\" step=\"1\" value=\"6\" condition=\"fullScreen == false\">\n\t\t<input type=\"range\" inline name=\"imageWidth\" title=\"Image\" min=\"4\" max=\"8\" step=\"1\" value=\"8\">\n\t\t<input type=\"checkbox\" title=\"Reverse\" name=\"reverseContent\" checked>\n\t\t<header>Show/Hide</header>\n\t\t<input type=\"checkbox\" title=\"Title\" name=\"showTitle\" checked>\n\t\t<input type=\"checkbox\" title=\"Text\" name=\"showText\" checked>\n\t\t<input type=\"checkbox\" title=\"Buttons\" name=\"showButtons\" checked>\n\t\t<header>Background</header>\n\t\t<fieldset type=\"background\" name=\"bg\" parallax>\n\t\t\t<input type=\"image\" title=\"Image\" value=\"../_images/background1.jpg\">\n\t\t\t<input type=\"color\" title=\"Color\" value=\"#edefeb\" selected>\n\t\t\t<input type=\"video\" title=\"Video\" value=\"https://vimeo.com/428046504\">\n\t\t</fieldset>\n\t\t<header condition=\"bg.type === 'video'\">Fallback Image</header>\n\t\t<input type=\"image\" title=\"Fallback Image\" value=\"../_images/background1.jpg\" name=\"fallBackImage\" condition=\"bg.type === 'video'\">\n\t\t<input type=\"checkbox\" title=\"Overlay\" name=\"overlay\" condition=\"bg.type !== 'color'\">\n\t\t<input type=\"color\" title=\"Overlay Color\" name=\"overlayColor\" value=\"#ffffff\" condition=\"overlay && bg.type !== 'color'\">\n\t\t<input type=\"range\" inline title=\"Opacity\" name=\"overlayOpacity\" min=\"0\" max=\"1\" step=\"0.1\" value=\"0.8\" condition=\"overlay && bg.type !== 'color'\">\n\t</mbr-parameters>\n\n\t<div class=\"mbr-fallback-image disabled\" mbr-if=\"bg.type == 'video'\"></div>\n\t<div class=\"mbr-overlay\" mbr-if=\"overlay && bg.type !== 'color'\" opacity=\"{{overlayOpacity}}\" bg-color=\"{{overlayColor}}\"></div>\n\n\t<div mbr-class=\"{'container': !fullWidth, 'container-fluid': fullWidth}\">\n\t\t<div class=\"row justify-content-center\">\n\t\t\t<div class=\"col-12 col-md-12 col-lg-{{imageWidth}} image-wrapper\">\n\t\t\t\t<img class=\"w-100\" src=\"@PROJECT_PATH@/assets/images/selilabart.png\" alt=\"Mobirise Website Builder\">\n\t\t\t</div>\n\t\t\t<div class=\"col-12 col-lg col-md-12\">\n\t\t\t\t<div class=\"text-wrapper align-left\">\n\t\t\t\t\t<h1 class=\"mbr-section-title mbr-fonts-style mb-4\" data-app-selector=\".mbr-section-title\" mbr-theme-style=\"display-2\" mbr-if=\"showTitle\">\n\t\t\t\t\t\t<b>Research</b></h1>\n\t\t\t\t\t<p class=\"mbr-text mbr-fonts-style mb-4\" mbr-theme-style=\"display-7\" mbr-if=\"showText\" data-app-selector=\".mbr-text, .mbr-section-btn\">Under Construction</p>\n\t\t\t\t\t<div mbr-buttons mbr-theme-style=\"display-7\" class=\"mbr-section-btn mt-3\" mbr-if=\"showButtons\" data-toolbar=\"-mbrBtnMove\"><a class=\"btn btn-danger\" href=\"https://mobiri.se\" data-app-placeholder=\"Type Text\">Read More</a></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>",
+          "_customHTML": "<section data-bs-version=\"5.1\" class=\"header1\" group=\"Headers\" data-bg-video=\"{{bg.type == 'video' && bg.value.url}}\" mbr-class=\"{\n    'mbr-fullscreen': fullScreen,\n    'mbr-parallax-background': bg.parallax}\">\n\t<mbr-parameters>\n\t\t<header>Size</header>\n\t\t<input type=\"checkbox\" title=\"Full Screen\" name=\"fullScreen\">\n\t\t<input type=\"checkbox\" title=\"Full Width\" name=\"fullWidth\" checked>\n\t\t<input type=\"range\" inline title=\"Top\" name=\"paddingTop\" min=\"0\" max=\"12\" step=\"1\" value=\"6\" condition=\"fullScreen == false\">\n\t\t<input type=\"range\" inline title=\"Bottom\" name=\"paddingBottom\" min=\"0\" max=\"12\" step=\"1\" value=\"6\" condition=\"fullScreen == false\">\n\t\t<input type=\"range\" inline name=\"imageWidth\" title=\"Image\" min=\"4\" max=\"8\" step=\"1\" value=\"5\">\n\t\t<input type=\"checkbox\" title=\"Reverse\" name=\"reverseContent\" checked>\n\t\t<header>Show/Hide</header>\n\t\t<input type=\"checkbox\" title=\"Title\" name=\"showTitle\" checked>\n\t\t<input type=\"checkbox\" title=\"Text\" name=\"showText\" checked>\n\t\t<input type=\"checkbox\" title=\"Buttons\" name=\"showButtons\" checked>\n\t\t<header>Background</header>\n\t\t<fieldset type=\"background\" name=\"bg\" parallax>\n\t\t\t<input type=\"image\" title=\"Image\" value=\"../_images/background1.jpg\">\n\t\t\t<input type=\"color\" title=\"Color\" value=\"#edefeb\" selected>\n\t\t\t<input type=\"video\" title=\"Video\" value=\"https://vimeo.com/428046504\">\n\t\t</fieldset>\n\t\t<header condition=\"bg.type === 'video'\">Fallback Image</header>\n\t\t<input type=\"image\" title=\"Fallback Image\" value=\"../_images/background1.jpg\" name=\"fallBackImage\" condition=\"bg.type === 'video'\">\n\t\t<input type=\"checkbox\" title=\"Overlay\" name=\"overlay\" condition=\"bg.type !== 'color'\">\n\t\t<input type=\"color\" title=\"Overlay Color\" name=\"overlayColor\" value=\"#ffffff\" condition=\"overlay && bg.type !== 'color'\">\n\t\t<input type=\"range\" inline title=\"Opacity\" name=\"overlayOpacity\" min=\"0\" max=\"1\" step=\"0.1\" value=\"0.8\" condition=\"overlay && bg.type !== 'color'\">\n\t</mbr-parameters>\n\n\t<div class=\"mbr-fallback-image disabled\" mbr-if=\"bg.type == 'video'\"></div>\n\t<div class=\"mbr-overlay\" mbr-if=\"overlay && bg.type !== 'color'\" opacity=\"{{overlayOpacity}}\" bg-color=\"{{overlayColor}}\"></div>\n\n\t<div mbr-class=\"{'container': !fullWidth, 'container-fluid': fullWidth}\">\n\t\t<div class=\"row justify-content-center\">\n\t\t\t<div class=\"col-12 col-md-12 col-lg-{{imageWidth}} image-wrapper\">\n\t\t\t\t<img class=\"w-100\" src=\"@PROJECT_PATH@/assets/images/selilabart.png\" alt=\"Mobirise Website Builder\">\n\t\t\t</div>\n\t\t\t<div class=\"col-12 col-lg col-md-12\">\n\t\t\t\t<div class=\"text-wrapper align-left\">\n\t\t\t\t\t<h1 class=\"mbr-section-title mbr-fonts-style mb-4\" data-app-selector=\".mbr-section-title\" mbr-theme-style=\"display-2\" mbr-if=\"showTitle\">\n\t\t\t\t\t\t<b>Research</b></h1>\n\t\t\t\t\t<p class=\"mbr-text mbr-fonts-style mb-4\" mbr-theme-style=\"display-7\" mbr-if=\"showText\" data-app-selector=\".mbr-text, .mbr-section-btn\">Under Construction</p>\n\t\t\t\t\t<div mbr-buttons mbr-theme-style=\"display-7\" class=\"mbr-section-btn mt-3\" mbr-if=\"showButtons\" data-toolbar=\"-mbrBtnMove\"><a class=\"btn btn-danger\" href=\"https://mobiri.se\" data-app-placeholder=\"Type Text\">Read More</a></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>",
           "_cid": "uiNWxL0kbX",
           "_anchor": "header01-4",
           "_protectedParams": [],
