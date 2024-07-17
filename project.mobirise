@@ -6,7 +6,7 @@
       "title": "StartM5",
       "styling": {
         "backgroundColor": "#ffffff",
-        "primaryColor": "#ff4552",
+        "primaryColor": "#0c2c68",
         "secondaryColor": "#4552ff",
         "successColor": "#000000",
         "infoColor": "#01563b",
@@ -33,10 +33,13 @@
       },
       "titlePreset": "Small Business",
       "nameSelectPreset": "small",
-      "presetSourceTheme": "startm5"
+      "presetSourceTheme": "startm5",
+      "additionalSetColors": [
+        "#ff4552"
+      ]
     },
     "path": "@PROJECT_PATH@",
-    "name": "Site 2024-07-17 10:02",
+    "name": "annapsmith",
     "versionFirst": "5.9.18",
     "siteFonts": [
       {
@@ -52,7 +55,7 @@
     ],
     "publishChangesOnly": true,
     "favicon": false,
-    "mbrsiteDomain": "hkogbjcsi7",
+    "mbrsiteDomain": "ljknlzahbi",
     "imageResize": false,
     "usedWebp": false,
     "robotsSwitcher": false,
