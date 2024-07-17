@@ -57,7 +57,7 @@
     "favicon": false,
     "mbrsiteDomain": "ljknlzahbi",
     "imageResize": false,
-    "usedWebp": false,
+    "usedWebp": true,
     "robotsSwitcher": false,
     "sitemapSwitcher": false,
     "sitemapSwitcherAuto": false,
