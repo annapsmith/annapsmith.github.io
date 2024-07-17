@@ -80,8 +80,8 @@
     "index.html": {
       "settings": {
         "main": true,
-        "title": "Home",
-        "meta_descr": "",
+        "title": "Anna Smith - Home",
+        "meta_descr": "Homepage of Anna Smith, Duke University Psychology & Neuroscience Doctoral Candidate",
         "header_custom": "",
         "footer_custom": "",
         "html_before": ""
