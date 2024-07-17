@@ -53,7 +53,7 @@
         "url": "https://fonts.googleapis.com/css?family=Manrope:200,300,400,500,600,700,800"
       }
     ],
-    "publishChangesOnly": true,
+    "publishChangesOnly": false,
     "favicon": false,
     "mbrsiteDomain": "ljknlzahbi",
     "imageResize": false,
@@ -64,6 +64,7 @@
     "siteUrl": false,
     "cookiesAlert": false,
     "gdpr": false,
+    "publishEditFolder": true,
     "uniqCompNum": 0,
     "versionPublish": "5.9.18"
   },
